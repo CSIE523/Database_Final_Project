@@ -1,0 +1,108 @@
+SELECT-FROM-WHERE
+	意義:找尋品牌名為honda的創立年分
+		
+	button: brandname = 'HONDA';
+	
+	*看一下
+	
+	sql: SELECT Founded FROM brand WHERE brandname = 'HONDA';
+		
+
+DELETE
+	*看一下
+	意義:假設yamaha的mt15停產，所以要從機車種類中剃除
+		
+	button: DELETE FROM type WHERE Typename='MT15';
+	
+	意義:假設kymco的GP停產，所以要從機車種類中剃除	
+	sql:	DELETE FROM type WHERE Typename='GP';
+	
+
+INSERT
+
+	意義:假設MT15和GP又恢復生產，重新插回機車種類的TABLE中
+		
+	button:INSERT INTO type VALUES ('MT15', '150', 'YAMAHA', 'motorcycle');
+	*看一下
+	sql:INSERT INTO type VALUES ('GP '125', 'KYMCO', 'scooter');
+	*看一下
+		
+UPDATE
+	意義:提升msx的排氣量
+		
+	button:SET Displacement = '150' WHERE Typename = 'MSX';
+		
+	sql:UPDATE type SET Displacement = '125' WHERE Typename = 'MSX';
+		
+
+IN 
+
+	意義:查看哪個品牌的總部在日本東京
+		
+	button:Brand_Location IN ('Tokyo, Japan');
+		
+	sql:SELECT Brandname FROM brand WHERE Brand_Location IN ('Tokyo, Japan');
+		
+NOT IN
+	意義:查看哪個品牌的總部不在日本東京
+		
+	button:Brand_Location NOT IN ('Tokyo, Japan');
+		
+	sql:SELECT Brandname FROM brand WHERE Brand_Location NOT IN ('Tokyo, Japan');
+		
+EXISTS
+	意義:看是否有顧客修車修少於1000元並顯示名字
+		
+	button:
+		
+	sql:SELECT Customername FROM customer WHERE EXISTS (SELECT Part FROM repairment WHERE customer.Engine_number=repairment.Engine_number AND Price < 1000);
+		
+NOT EXISTS
+	意義:看是否有顧客修車修多於1000元並顯示名字
+		
+	button:
+		
+	sql:SELECT Customername FROM customer WHERE NOT EXISTS (SELECT Part FROM repairment WHERE customer.Engine_number=repairment.Engine_number AND Price < 1000);
+		
+COUNT
+	意義:看資料庫內總共有幾筆維修
+		
+	button:SELECT COUNT(ID) FROM repairment;
+	*看一下
+	sql:SELECT COUNT(ID) FROM repairment;
+		
+SUM
+	意義:十間店加起來收多少錢
+		
+	button:
+		
+	sql:SELECT SUM(Price) FROM repairment;
+		
+MAX
+	意義: 收的最大的金額
+		
+	button:
+		
+	sql:SELECT MAX(Price) FROM repairment;
+		
+MIN
+	意義:收得最少的金額
+		
+	button:
+		
+	sql:SELECT MIN(Price) FROM repairment;
+		
+AVG
+	意義:十間店平均賺多少錢
+		
+	button:
+		
+	sql:SELECT AVG(Price) FROM repairment;
+		
+HAVING
+	意義:去某間店維修超過500的維修單號
+		
+	button:
+		
+	sql:SELECT ID FROM repairment GROUP BY Store HAVING max(Price)<500;
+		
